@@ -15,6 +15,7 @@ import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
@@ -46,6 +47,7 @@ public class EcheneidaeConnection implements Connection {
 		this.echeneidaeDataSource = echeneidaeDataSource;
 		this.rawConn = rawConn;
 		valid = true;
+		lastInteractTime = (int) (new Date().getTime() / 1000);
 	}
 
 	
@@ -191,7 +193,7 @@ public class EcheneidaeConnection implements Connection {
 
 	@Override
 	public void close() throws SQLException {
-		rawConn.close();
+		// TO nothing
 	}
 
 	@Override

@@ -8,11 +8,16 @@ import java.util.Date;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author hongliuliao
  * 2014-4-11 上午10:43:54
  */
 public class EcheneidaeDataSource implements DataSource {
+	
+	private static final Log log = LogFactory.getLog(EcheneidaeDataSource.class);
 	
 	private static final int DEFAULT_SECOND_OF_MAX_IDLE = 60;
 	
@@ -31,12 +36,22 @@ public class EcheneidaeDataSource implements DataSource {
 	 * @param userName
 	 * @param password
 	 */
-	public EcheneidaeDataSource(String url, String userName, String password) {
+	public EcheneidaeDataSource(String driverClassName, String url, String userName, String password) {
 		super();
 		this.url = url;
 		this.userName = userName;
 		this.password = password;
 		secondOfMaxIdle = DEFAULT_SECOND_OF_MAX_IDLE;
+		
+		registerDriver(driverClassName);
+	}
+	
+	private void registerDriver(String driverClassName) {
+		try {
+			Class.forName(driverClassName);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public int getSecondOfMaxIdle() {
@@ -88,6 +103,7 @@ public class EcheneidaeDataSource implements DataSource {
 		Connection rawConn = DriverManager.getConnection(url, userName, password);
 		conn = new EcheneidaeConnection(this, rawConn);
 		connections.set(conn);
+		log.info("Start create new connection ...");
 		return conn;
 	}
 
