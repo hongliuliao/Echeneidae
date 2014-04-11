@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
+import java.util.Date;
 
 /**
  * @author hongliuliao 2014-4-11 上午11:27:04
@@ -47,6 +48,13 @@ public class EcheneidaeStatement implements Statement {
 			echeneidaeConnection.setValid(false);
 		}
 	}
+	
+	/**
+	 * 执行完sql之后的操作
+	 */
+	protected void afterExecute() {
+		this.echeneidaeConnection.setLastInteractTime((int) (new Date().getTime() / 1000));
+	}
 
 	@Override
 	public ResultSet executeQuery(String sql) throws SQLException {
@@ -55,6 +63,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -65,6 +75,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -75,6 +87,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -86,6 +100,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -97,6 +113,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -108,6 +126,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -119,6 +139,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -129,6 +151,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -140,6 +164,8 @@ public class EcheneidaeStatement implements Statement {
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 

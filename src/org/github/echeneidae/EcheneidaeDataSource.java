@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -13,6 +14,8 @@ import javax.sql.DataSource;
  */
 public class EcheneidaeDataSource implements DataSource {
 	
+	private static final int DEFAULT_SECOND_OF_MAX_IDLE = 60;
+	
 	private ThreadLocal<EcheneidaeConnection> connections = new ThreadLocal<EcheneidaeConnection>();
 	
 	private String url;
@@ -20,6 +23,8 @@ public class EcheneidaeDataSource implements DataSource {
 	private String userName;
 	
 	private String password;
+	
+	private int secondOfMaxIdle;
 	
 	/**
 	 * @param url
@@ -31,6 +36,15 @@ public class EcheneidaeDataSource implements DataSource {
 		this.url = url;
 		this.userName = userName;
 		this.password = password;
+		secondOfMaxIdle = DEFAULT_SECOND_OF_MAX_IDLE;
+	}
+
+	public int getSecondOfMaxIdle() {
+		return secondOfMaxIdle;
+	}
+
+	public void setSecondOfMaxIdle(int secondOfMaxIdle) {
+		this.secondOfMaxIdle = secondOfMaxIdle;
 	}
 
 	@Override
@@ -66,7 +80,8 @@ public class EcheneidaeDataSource implements DataSource {
 	@Override
 	public Connection getConnection() throws SQLException {
 		EcheneidaeConnection conn = connections.get();
-		if(conn != null && conn.isValid()) {
+		int nowSeconds = (int) (new Date().getTime() / 1000);
+		if(conn != null && conn.isValid() && nowSeconds - conn.getLastInteractTime() < secondOfMaxIdle) {
 			return conn;
 		}
 		

@@ -38,6 +38,8 @@ public class EcheneidaePreparedStatement extends EcheneidaeStatement implements 
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
 		}
 	}
 
@@ -48,6 +50,20 @@ public class EcheneidaePreparedStatement extends EcheneidaeStatement implements 
 		} catch (SQLException e) {
 			checkConnectWhenException();
 			throw e;
+		} finally {
+			afterExecute();
+		}
+	}
+	
+	@Override
+	public boolean execute() throws SQLException {
+		try {
+			return ((PreparedStatement)rawStatement).execute();
+		} catch (SQLException e) {
+			checkConnectWhenException();
+			throw e;
+		}  finally {
+			afterExecute();
 		}
 	}
 
@@ -156,16 +172,6 @@ public class EcheneidaePreparedStatement extends EcheneidaeStatement implements 
 	@Override
 	public void setObject(int parameterIndex, Object x) throws SQLException {
 		((PreparedStatement)rawStatement).setObject(parameterIndex, x);
-	}
-
-	@Override
-	public boolean execute() throws SQLException {
-		try {
-			return ((PreparedStatement)rawStatement).execute();
-		} catch (SQLException e) {
-			checkConnectWhenException();
-			throw e;
-		}
 	}
 
 	@Override

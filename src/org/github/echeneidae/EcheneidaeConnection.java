@@ -34,6 +34,11 @@ public class EcheneidaeConnection implements Connection {
 	private Connection rawConn;
 	
 	/**
+	 * 最后一次与服务器的交互时间,单位秒
+	 */
+	private int lastInteractTime;
+	
+	/**
 	 * @param rawConn
 	 */
 	public EcheneidaeConnection(EcheneidaeDataSource echeneidaeDataSource, Connection rawConn) {
@@ -42,6 +47,17 @@ public class EcheneidaeConnection implements Connection {
 		this.rawConn = rawConn;
 		valid = true;
 	}
+
+	
+	public int getLastInteractTime() {
+		return lastInteractTime;
+	}
+
+	public void setLastInteractTime(int lastInteractTime) {
+		this.lastInteractTime = lastInteractTime;
+	}
+
+
 
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
