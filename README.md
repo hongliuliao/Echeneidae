@@ -6,6 +6,7 @@ a connection pool , supply a long connection for per thread
 ##特点:##
 - 1.实现模式简单:一个线程对应一个数据库长连接,无需加锁
 - 2.使用简单:几乎无外部依赖,几乎无需配置即可使用
+- 3.需要配合线程池一起使用
 
 ##使用要求:##
 jdk 1.6以上,jdbc4
