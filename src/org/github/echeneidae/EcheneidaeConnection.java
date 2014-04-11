@@ -175,7 +175,13 @@ public class EcheneidaeConnection implements Connection {
 
 	@Override
 	public void commit() throws SQLException {
-		rawConn.commit();
+		try {
+			rawConn.commit();
+		} catch (SQLException e) {
+			if(this.checkConnect() == false) {
+				this.setValid(false);
+			}
+		}
 	}
 
 	@Override
