@@ -32,7 +32,11 @@ public class EcheneidaeDataSourceTest {
 			e.printStackTrace();
 		}
 		
-		result = queryer.query("select * from tb_users", new MapListHandler());
+		try {
+			result = queryer.query("select * from tb_users", new MapListHandler());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		result = queryer.query("select * from tb_users", new MapListHandler());
 		Assert.assertNotNull(result);
 	}

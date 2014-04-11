@@ -29,6 +29,9 @@ public class EcheneidaeDataSource implements DataSource {
 	
 	private String password;
 	
+	/**
+	 * 最大链接空闲时间
+	 */
 	private int secondOfMaxIdle;
 	
 	/**
@@ -100,6 +103,9 @@ public class EcheneidaeDataSource implements DataSource {
 			return conn;
 		}
 		
+		if(conn != null) { // 如果之前的链接还在,但是由于某种原因失效了,需要先关闭它
+			conn.close();
+		}
 		Connection rawConn = DriverManager.getConnection(url, userName, password);
 		conn = new EcheneidaeConnection(this, rawConn);
 		connections.set(conn);
