@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.NClob;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
@@ -330,30 +329,11 @@ public class EcheneidaeConnection implements Connection {
 		return echeneidaeDataSource;
 	}
 	
-	/**
-	 * 通过 执行{@link EcheneidaeDataSource#getValidationQuery()}语句判断是否连接正常
-	 * @return
-	 */
-	public boolean validateConnect() {
-		Statement statement = null;
-		ResultSet rs = null;
+	public boolean checkConnect() {
 		try {
-			statement = rawConn.createStatement();
-			rs = statement.executeQuery(echeneidaeDataSource.getValidationQuery());
-			return true;
+			return rawConn.isValid(1);
 		} catch (SQLException e) {
-			return false;
-		} finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e2) {}
-			}
-			if(statement != null) {
-				try {
-					statement.close();
-				} catch (Exception e2) {}
-			}
+			throw new RuntimeException(e); // 正常来说不可能,除非使用的不是jdbc 4.0 
 		}
 	}
 

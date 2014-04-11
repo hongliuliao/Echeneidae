@@ -13,8 +13,6 @@ import javax.sql.DataSource;
  */
 public class EcheneidaeDataSource implements DataSource {
 	
-	private static final String DEFAULT_VALIDATION_QUERY = "select 1";
-	
 	private ThreadLocal<EcheneidaeConnection> connections = new ThreadLocal<EcheneidaeConnection>();
 	
 	private String url;
@@ -22,8 +20,6 @@ public class EcheneidaeDataSource implements DataSource {
 	private String userName;
 	
 	private String password;
-	
-	private String validationQuery;
 	
 	/**
 	 * @param url
@@ -35,15 +31,6 @@ public class EcheneidaeDataSource implements DataSource {
 		this.url = url;
 		this.userName = userName;
 		this.password = password;
-		validationQuery = DEFAULT_VALIDATION_QUERY;
-	}
-
-	public String getValidationQuery() {
-		return validationQuery;
-	}
-
-	public void setValidationQuery(String validationQuery) {
-		this.validationQuery = validationQuery;
 	}
 
 	@Override

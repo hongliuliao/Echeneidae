@@ -43,7 +43,7 @@ public class EcheneidaeStatement implements Statement {
 	 * 在执行sql出现异常的时候检查,如果有问题,就标记连接为不可用
 	 */
 	protected void checkConnectWhenException() {
-		if (!echeneidaeConnection.validateConnect()) {
+		if (!echeneidaeConnection.checkConnect()) {
 			echeneidaeConnection.setValid(false);
 		}
 	}
