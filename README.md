@@ -9,7 +9,7 @@ a connection pool , supply a long connection for per thread
 ##特点:##
 - 1.实现模式简单:一个线程对应一个数据库长连接,无需加锁
 - 2.使用简单:几乎无外部依赖,几乎无需配置即可使用
-- 3.必须配合线程池一起使用,否则连接可能无法释放([为什么是可能?](https://github.com/hongliuliao/Echeneidae/wiki/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%85%8D%E5%90%88%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E9%93%BE%E6%8E%A5%E6%97%A0%E6%B3%95%E5%85%B3%E9%97%AD))
+- 3.必须配合固定大小线程池一起使用,否则连接可能无法释放([为什么是可能?](https://github.com/hongliuliao/Echeneidae/wiki/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%85%8D%E5%90%88%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E9%93%BE%E6%8E%A5%E6%97%A0%E6%B3%95%E5%85%B3%E9%97%AD))
 
 ##使用要求:##
 jdk 1.6以上,jdbc4
