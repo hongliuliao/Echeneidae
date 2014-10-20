@@ -183,6 +183,7 @@ public class EcheneidaeConnection implements Connection {
 			if(this.checkConnect() == false) {
 				this.setValid(false);
 			}
+			throw e;
 		}
 	}
 
